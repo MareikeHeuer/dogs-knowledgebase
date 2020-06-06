@@ -1,5 +1,5 @@
-//pokemonList array wrapped inside an IIFE
-function showModal(title, text) {
+//dogBreedsList array wrapped inside an IIFE
+function showModal(title) {
   var modalContainer = $("#modal-container");
 
   // Clear all existing modal content
@@ -21,12 +21,9 @@ function showModal(title, text) {
   var titleElement = document.createElement("h1");
   titleElement.innerText = title;
 
-  var contentElement = document.createElement("p");
-  contentElement.innerText = text;
 
   modal.appendChild(closeButtonElement);
   modal.appendChild(titleElement);
-  modal.appendChild(contentElement);
   modalContainer.append(modal);
 
   modalContainer.addClass("is-visible");
@@ -101,14 +98,14 @@ function showDialog(title, text) {
 
 
 var pokemonRepository = (function () {
-  var pokemonList = [];
-  var apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
+  var dogBreedsList = [];
+  var apiUrl = 'https://dog.ceo/api/breeds/list/all';
 
 
   //Create a function inside IIFE
   function addListItem(pokemon) {
     //new variable
-    var pokemonList = $('.pokemon-list');
+    var dogBreedsList = $('.pokemon-list');
     //create li element
     var listItem = document.createElement('li');
     //create a button createElement
@@ -120,33 +117,34 @@ var pokemonRepository = (function () {
     })
     // Add to parents
     listItem.appendChild(button);
-    pokemonList.append(listItem);
+    dogBreedsList.append(listItem);
   }
 
 // Function to show details
-function showDetails(pokemon) {
-  loadDetails(pokemon).then(function () {
-    showModal(pokemon.name, 'Height: ' + pokemon.height);
+function showDetails(dogBreed) {
+  loadDetails(dogBreed).then(function () {
+    showModal(dogBreed.name);
     var modal = modalContainer.find(".modal");
     var imageTag = document.createElement("img");
-    imageTag.src = pokemon.imageUrl;
+    imageTag.src = dogBreed.imageUrl;
     modal.append(imageTag)
   });
 }
 
   //Function to add Pokemon to the Pokemon list
-  function add(pokemon) {
-    pokemonList.push(pokemon);
+  function add(dogBreed) {
+    dogBreedsList.push(dogBreed);
   }
 
   function loadList() {
     return $.ajax(apiUrl, { dataType: 'json' }).then(function (json) {
-      json.results.forEach(function (item) {
-        var pokemon = {
-          name: item.name,
-          detailsUrl: item.url
+      console.log(json);
+      Object.keys(json.message).forEach(function (name) {
+        var dogBreed = {
+          name: name,
+          detailsUrl: "https://dog.ceo/api/breed/" + name + "/images/random"
         };
-        add(pokemon);
+        add(dogBreed);
       });
     }).catch(function (e) {
       console.error(e);
@@ -155,16 +153,14 @@ function showDetails(pokemon) {
 
   //Function to get all the Pokemons
   function getAll() {
-    return pokemonList;
+    return dogBreedsList;
   }
 
   function loadDetails(item) {
   var url = item.detailsUrl;
   return $.ajax(url, { dataType: 'json' }).then(function (details) {
     // Now we add the details to the item
-    item.imageUrl = details.sprites.front_default;
-    item.height = details.height;
-    item.types = details.types;
+    item.imageUrl = details.message;
   }).catch(function (e) {
     console.error(e);
   });
