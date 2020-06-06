@@ -10,7 +10,7 @@ function showModal(title) {
 
   // Add the new modal content
   var closeButtonElement = document.createElement("button");
-  closeButtonElement.classList.add("modal-close");
+  closeButtonElement.classList.add("modal-close", "btn", "btn-secondary");
   closeButtonElement.innerText = "Close";
   closeButtonElement.addEventListener("click", hideModal);
 
@@ -54,7 +54,7 @@ function hideModal() {
   }
 }
 //function to show dialog
-function showDialog(title, text) {
+/*function showDialog(title, text) {
   showModal(title, text);
 
   // Add a confirm and cancel button to the modal
@@ -87,7 +87,7 @@ function showDialog(title, text) {
     dialogPromiseReject = reject;
   });
 }
-
+*/
 
 
 
@@ -105,7 +105,13 @@ var dogBreedRepository = (function() {
     //create a button createElement
     var button = document.createElement('button');
     button.innerText = dogBreed.name;
-    button.classList.add('dog-breed-button')
+    button.classList.add('dog-breed-button', 'btn', 'btn-primary');
+    var dataAttribute = document.createAttribute('data-toggle');
+    dataAttribute.value = 'modal';
+    button.setAttributeNode(dataAttribute);
+    var targetAttribute = document.createAttribute('data-target');
+    targetAttribute.value = '#breedModal';
+    button.setAttributeNode(targetAttribute);
     button.addEventListener('click', function() {
       showDetails(dogBreed)
     })
@@ -117,11 +123,15 @@ var dogBreedRepository = (function() {
   // Function to show details
   function showDetails(dogBreed) {
     loadDetails(dogBreed).then(function() {
-      showModal(dogBreed.name);
+      //showModal(dogBreed.name);
+      $('#breedLabel').html(dogBreed.name);
       var modal = modalContainer.find(".modal");
       var imageTag = document.createElement("img");
       imageTag.src = dogBreed.imageUrl;
-      modal.append(imageTag)
+      modal.append(imageTag);
+      $('.modal-body').html('')
+      $('.modal-body').append(imageTag);
+      //$('.modal-body').html('<img src="' + dogBreed.imageUrl + '" />');
     });
   }
 
