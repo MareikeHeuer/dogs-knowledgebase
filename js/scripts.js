@@ -53,43 +53,6 @@ function hideModal() {
     dialogPromiseReject = null;
   }
 }
-//function to show dialog
-/*function showDialog(title, text) {
-  showModal(title, text);
-
-  // Add a confirm and cancel button to the modal
-  var modal = modalContainer.querySelector(".modal");
-
-  var confirmButton = document.createElement("button");
-  confirmButton.classList.add("modal-confirm");
-  confirmButton.innerText = "Confirm";
-
-  var cancelButton = document.createElement("button");
-  cancelButton.classList.add("modal-cancel");
-  cancelButton.innerText = "Cancel";
-
-  modal.appendChild(confirmButton);
-  modal.appendChild(cancelButton);
-
-  // We want to focus the confirmButton so that the user can simply press Enter
-  confirmButton.focus();
-
-  // Return a promise that resolves when confirmed, else rejects
-  return new Promise((resolve, reject) => {
-    cancelButton.addEventListener("click", hideModal);
-    confirmButton.addEventListener("click", () => {
-      dialogPromiseReject = null; // Reset this
-      hideModal();
-      resolve();
-    });
-
-    // This can be used to reject from other functions
-    dialogPromiseReject = reject;
-  });
-}
-*/
-
-
 
 var dogBreedRepository = (function() {
   var dogBreedsList = [];
@@ -100,12 +63,10 @@ var dogBreedRepository = (function() {
   function addListItem(dogBreed) {
     //new variable
     var dogBreedsList = $('.dog-breed-list');
-    //create li element
-    var listItem = document.createElement('li');
     //create a button createElement
     var button = document.createElement('button');
     button.innerText = dogBreed.name;
-    button.classList.add('dog-breed-button', 'btn', 'btn-primary');
+    button.classList.add("list-group-item", "list-group-item-action");
     var dataAttribute = document.createAttribute('data-toggle');
     dataAttribute.value = 'modal';
     button.setAttributeNode(dataAttribute);
@@ -115,9 +76,8 @@ var dogBreedRepository = (function() {
     button.addEventListener('click', function() {
       showDetails(dogBreed)
     })
-    // Add to parents
-    listItem.appendChild(button);
-    dogBreedsList.append(listItem);
+
+    dogBreedsList.append(button);
   }
 
   // Function to show details
