@@ -66,7 +66,7 @@ var dogBreedRepository = (function() {
     //create a button createElement
     var button = document.createElement('button');
     button.innerText = dogBreed.name;
-    button.classList.add("list-group-item", "list-group-item-action");
+    button.classList.add("list-group-item", "list-group-item-action", "dog-breed");
     var dataAttribute = document.createAttribute('data-toggle');
     dataAttribute.value = 'modal';
     button.setAttributeNode(dataAttribute);

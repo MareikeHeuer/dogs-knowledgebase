@@ -1,3 +1,26 @@
+.dog-breed {
+  text-transform: capitalize;
+  text-align: center;
+  padding: 8px;
+  margin: 8px;
+}
+
+.form-inline {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 8px;
+  margin-right: 10px;
+}
+
+.navbar-default {
+  background-color: #e2f5e0;
+}
+
+body {
+  background-color: #cdebc1;
+}
+
 .dog-breed-name {
   width: 100px;
   border-right: 1px solid black;
@@ -15,13 +38,25 @@ ul {
   list-style: none;
 }
 
+.dog-image {
+  width: 100px;
+  height: 80px;
+}
+
 .dog-breed-header {
-  border: 1px solid;
-  padding: 17px;
-  width: 67px;
-  margin-left: 40px;
-  background-color: #3466af;
   color: white;
+  display: block;
+  margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 40px;
+  width: 30%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.dog-breed-header img {
+  width: 200%;
 }
 
 #modal-container {
@@ -50,34 +85,6 @@ ul {
   display: block;
 }
 
-/* .modal {
-  margin: auto;
-  display: inline-block;
-  box-sizing: border-box;
-  background: #fff;
-  padding: 15px;
-  width: 100%;
-  max-width: 700px;
-  text-align: left;
-}
-
-.modal-close {
-  float: right;
-  -webkit-appearance: none;
-  border: 0;
-  background: none;
-  color: #777;
-  text-decoration: underline;
-}
-
-.modal h1 {
-  margin-top: 0;
-}
-
-.modal p {
-  margin-bottom: 0;
-} */
-
 body {
   display: flex;
   flex-direction: column;
@@ -88,4 +95,25 @@ body {
   margin-top: 60px;
 }
 
-@media only screen and (orientation: landscape){ }
+.list-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 60px;
+  row-gap: 1em;
+  margin-left: -25px;
+}
+
+.modal-body img {
+  width: 100%;
+}
+
+.my-logo {
+  width: auto;
+  height: 40px;
+}
+
+.header-dog-image {
+  position: absolute;
+  top: 5px;
+  right: 0;
+}
