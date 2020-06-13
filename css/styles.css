@@ -118,6 +118,10 @@ body {
   right: 0;
 }
 
+.nav-item {
+  color: black;
+}
+
 @media all and (max-width: 500px) {
   .dog-breed-list {
     grid-template-columns: 1fr;
