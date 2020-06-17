@@ -1,79 +1,25 @@
-//dogBreedsList array wrapped inside an IIFE
-function showModal(title) {
-  var modalContainer = $("#modal-container");
-
-  // Clear all existing modal content
-  modalContainer.html("");
-
-  var modal = document.createElement("div");
-  modal.classList.add("modal");
-
-  // Add the new modal content
-  var closeButtonElement = document.createElement("button");
-  closeButtonElement.classList.add("modal-close", "btn", "btn-secondary");
-  closeButtonElement.innerText = "Close";
-  closeButtonElement.addEventListener("click", hideModal);
-
-  var titleElement = document.createElement("h1");
-  titleElement.innerText = title;
-
-
-  modal.appendChild(closeButtonElement);
-  modal.appendChild(titleElement);
-  modalContainer.append(modal);
-
-  modalContainer.addClass("is-visible");
-
-  //Make modal disappear when pressing esc button
-  window.addEventListener("keydown", (e) => {
-    var modalContainer = $("#modal-container");
-    if (e.key === "Escape" && modalContainer.hasClass("is-visible")) {
-      hideModal();
-    }
-  });
-
-  modalContainer.click(function(e) {
-
-    var target = e.target;
-    if (target === modalContainer) {
-      hideModal();
-    }
-  });
-}
-
-
 var modalContainer = $("#modal-container");
-
-var dialogPromiseReject;
-//Function to hide modal
-function hideModal() {
-  modalContainer.removeClass("is-visible");
-  if (dialogPromiseReject) {
-    dialogPromiseReject();
-    dialogPromiseReject = null;
-  }
-}
 
 var dogBreedRepository = (function() {
   var dogBreedsList = [];
-  var apiUrl = 'https://dog.ceo/api/breeds/list/all';
+  var apiUrl = "https://dog.ceo/api/breeds/list/all";
 
 
   //Create a function inside IIFE
   function addListItem(dogBreed) {
     //new variable
-    var dogBreedsList = $('.dog-breed-list');
+    var dogBreedsList = $(".dog-breed-list");
     //create a button createElement
-    var button = document.createElement('button');
+    var button = document.createElement("button");
     button.innerText = dogBreed.name;
     button.classList.add("list-group-item", "list-group-item-action", "dog-breed");
-    var dataAttribute = document.createAttribute('data-toggle');
-    dataAttribute.value = 'modal';
+    var dataAttribute = document.createAttribute("data-toggle");
+    dataAttribute.value = "modal";
     button.setAttributeNode(dataAttribute);
-    var targetAttribute = document.createAttribute('data-target');
-    targetAttribute.value = '#breedModal';
+    var targetAttribute = document.createAttribute("data-target");
+    targetAttribute.value = "#breedModal";
     button.setAttributeNode(targetAttribute);
-    button.addEventListener('click', function() {
+    button.addEventListener("click", function() {
       showDetails(dogBreed)
     })
 
@@ -84,13 +30,13 @@ var dogBreedRepository = (function() {
   function showDetails(dogBreed) {
     loadDetails(dogBreed).then(function() {
       //showModal(dogBreed.name);
-      $('#breedLabel').html(dogBreed.name);
+      $("#breedLabel").html(dogBreed.name);
       var modal = modalContainer.find(".modal");
       var imageTag = document.createElement("img");
       imageTag.src = dogBreed.imageUrl;
       modal.append(imageTag);
-      $('.modal-body').html('')
-      $('.modal-body').append(imageTag);
+      $(".modal-body").html("")
+      $(".modal-body").append(imageTag);
       //$('.modal-body').html('<img src="' + dogBreed.imageUrl + '" />');
     });
   }
@@ -102,7 +48,7 @@ var dogBreedRepository = (function() {
 
   function loadList() {
     return $.ajax(apiUrl, {
-      dataType: 'json'
+      dataType: "json"
     }).then(function(json) {
       Object.keys(json.message).forEach(function(name) {
         var dogBreed = {
@@ -124,7 +70,7 @@ var dogBreedRepository = (function() {
   function loadDetails(item) {
     var url = item.detailsUrl;
     return $.ajax(url, {
-      dataType: 'json'
+      dataType: "json"
     }).then(function(details) {
       // Now we add the details to the item
       item.imageUrl = details.message;
